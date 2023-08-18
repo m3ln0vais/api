@@ -9,123 +9,58 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import med.vol.api.Specialty;
 import med.vol.api.dtos.DoctorPostDTO;
 import med.vol.api.dtos.DoctorPutDTO;
 
 @Table(name = "doctors")
 @Entity
+@Getter
+@Setter
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Doctor {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String nome;
-	private String email;
-	private String telefone;
-	private String crm;
-	@Enumerated(EnumType.STRING)
-	private Specialty specialty;
-	@Embedded
-	private Address address;
-	private Boolean ativo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nome;
+    private String email;
+    private String telefone;
+    private String crm;
+    @Enumerated(EnumType.STRING)
+    private Specialty specialty;
+    @Embedded
+    private Address address;
+    private Boolean ativo;
 
-	public Doctor(DoctorPostDTO doctorDTO) {
-		this.ativo = true;
-		this.nome = doctorDTO.nome();
-		this.email = doctorDTO.email();
-		this.telefone = doctorDTO.telefone();
-		this.crm = doctorDTO.crm();
-		this.specialty = doctorDTO.speciality();
-		this.address = new Address(doctorDTO.address());
-	}
+    public Doctor(DoctorPostDTO doctorDTO) {
+        this.ativo = true;
+        this.nome = doctorDTO.nome();
+        this.email = doctorDTO.email();
+        this.telefone = doctorDTO.telefone();
+        this.crm = doctorDTO.crm();
+        this.specialty = doctorDTO.speciality();
+        this.address = new Address(doctorDTO.address());
+    }
 
-	public void atualizar(DoctorPutDTO doctorPutDTO) {
-		if (doctorPutDTO.nome() != null) {
-			this.nome = doctorPutDTO.nome();
-		}
-		if (doctorPutDTO.telefone() != null) {
-			this.telefone = doctorPutDTO.telefone();
-		}
-		if (doctorPutDTO.address() != null) {
-			this.address = doctorPutDTO.address();
-		}
-	}
+    public void atualizar(DoctorPutDTO doctorPutDTO) {
+        if (doctorPutDTO.nome() != null) {
+            this.nome = doctorPutDTO.nome();
+        }
+        if (doctorPutDTO.telefone() != null) {
+            this.telefone = doctorPutDTO.telefone();
+        }
+        if (doctorPutDTO.address() != null) {
+            this.address = doctorPutDTO.address();
+        }
+    }
 
-	public void excluir() {
-		this.ativo = false;
+    public void excluir() {
+        this.ativo = false;
 
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
-	public String getCrm() {
-		return crm;
-	}
-
-	public void setCrm(String crm) {
-		this.crm = crm;
-	}
-
-	public Specialty getSpecialty() {
-		return specialty;
-	}
-
-	public void setSpecialty(Specialty specialty) {
-		this.specialty = specialty;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	public Boolean getAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(Boolean ativo) {
-		this.ativo = ativo;
-	}
-
+    }
 }

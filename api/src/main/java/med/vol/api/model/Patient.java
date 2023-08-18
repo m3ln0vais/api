@@ -7,14 +7,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import med.vol.api.dtos.PatientPostDTO;
 import med.vol.api.dtos.PatientPutDTO;
 
 @Table(name = "patients")
 @Entity
+@Getter
+@Setter
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,8 +29,10 @@ public class Patient {
 	private String cpf;
 	@Embedded
 	private Address address;
+	private Boolean ativo;
 
 	public Patient(PatientPostDTO postDTO) {
+		this.ativo = true;
 		this.nome = postDTO.nome();
 		this.email = postDTO.email();
 		this.telefone = postDTO.telefone();
@@ -49,53 +51,4 @@ public class Patient {
 			this.address = putDTO.address();
 		}
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
 }
